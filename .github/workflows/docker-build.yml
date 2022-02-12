@@ -37,7 +37,8 @@ jobs:
         id: version
         shell: bash
         run: |
-          echo "${{ steps.dockerfile.outputs.content }}" > /tmp/content.txt
+          sed -n '2p' "${{ steps.dockerfile.outputs.content }}" | sed 's|ARG RENOVATE_VERSION=||1' > /tmp/content.txt
+          
 
       - name: Print version
         run: |
