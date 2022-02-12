@@ -1,5 +1,23 @@
 {
   "extends": [
     "config:base"
-  ]
+  ],
+  "enabledManagers": [
+    "dockerfile",
+    "github-actions"
+  ],
+  "packageRules": [
+    {
+      "matchUpdateTypes": [
+        "major",
+        "minor",
+        "patch",
+        "digest"
+      ],
+      "automerge": true,
+      "automergeType": "branch"
+    }
+  ],
+  "requiredStatusChecks": null,
+  "platformAutomerge": true
 }
