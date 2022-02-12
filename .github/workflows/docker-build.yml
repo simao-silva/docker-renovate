@@ -27,12 +27,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Read Dockerfile
-        id: dockerfile
-        uses: juliangruber/read-file-action@v1
-        with:
-          path: ./Dockerfile
-
       - name: Get version for tag
         id: version
         shell: bash
