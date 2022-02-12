@@ -38,7 +38,8 @@ jobs:
         shell: bash
         run: |
           echo "${{ steps.dockerfile.outputs.content }}" > /tmp/content.txt
-          echo "::set-output name=VERSION::$(sed -n '2p' /tmp/content.txt | sed 's|ARG RENOVATE_VERSION=||1')"
+          cat /tmp/content.txt
+          echo "::set-output name=VERSION::$(echo test && sed -n '2p' /tmp/content.txt | sed 's|ARG RENOVATE_VERSION=||1')"
 
       - name: Print version
         run: |
