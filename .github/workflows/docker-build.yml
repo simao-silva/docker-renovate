@@ -37,7 +37,7 @@ jobs:
         id: version
         shell: bash
         run: |
-          echo "::set-output name=VERSION::$(cat Dockerfile | grep RENOVATE_VERSION | head -n 1 | cut -d = -f 2)"
+          echo "::set-output name=VERSION::$(echo ola)"
 
       - name: Print version
         run: |
