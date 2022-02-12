@@ -38,7 +38,7 @@ jobs:
         shell: bash
         run: |
           echo "${{ steps.dockerfile.outputs.content }}" > /tmp/content.txt
-          echo "::set-output name=VERSION::$(cat /tmp/content.txt | grep RENOVATE_VERSION | head -n 1 | cut -d = -f 2)"
+          echo "::set-output name=VERSION::'$(cat /tmp/content.txt | grep RENOVATE_VERSION | head -n 1 | cut -d = -f 2)'"
 
       - name: Print version
         run: |
