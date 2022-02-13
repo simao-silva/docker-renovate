@@ -2,10 +2,6 @@
   "extends": [
     "config:base"
   ],
-  "enabledManagers": [
-    "dockerfile",
-    "github-actions"
-  ],
   "packageRules": [
     {
       "matchUpdateTypes": [
