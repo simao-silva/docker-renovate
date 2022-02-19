@@ -2,10 +2,6 @@
   "extends": [
     "config:base"
   ],
-  "enabledManagers": [
-    "dockerfile",
-    "github-actions"
-  ],
   "packageRules": [
     {
       "matchUpdateTypes": [
@@ -18,6 +14,45 @@
       "automergeType": "branch"
     }
   ],
+  "regexManagers": [
+    {
+      "fileMatch": [
+        "Dockerfile"
+      ],
+      "matchStrings": [
+        ".*# renovate: datasource=(?<datasource>\\S+) lookupName=(?<depName>\\S+)( versioning=(?<versioning>.*?))?\\sRUN install-[a-z]* [a-z]* (?<currentValue>.*).*"
+      ],
+      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
+    },
+    {
+      "fileMatch": [
+        "^\\.github\\/workflows\\/[^/]+\\.ya?ml$"
+      ],
+      "matchStrings": [
+        ".*# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+) versioning=(?<versioning>\\S+)\\sARG .*_VERSION=(?<currentValue>.*)\\s.*"
+      ],
+      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
+    },
+    {
+      "fileMatch": [
+        "^\\.github\\/workflows\\/[^/]+\\.ya?ml$"
+      ],
+      "matchStrings": [
+        ".*# renovate: datasource=(?<datasource>\\S+)( versioning=(?<versioning>\\S+))?\nRUN install-[a-z]+? [a-z]+? v?(?<currentValue>.*)"
+      ],
+      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
+    },
+    {
+      "fileMatch": [
+        "^\\.github\\/workflows\\/[^/]+\\.ya?ml$"
+      ],
+      "matchStrings": [
+        ".*# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+) lookupName=(?<lookupName>\\S+)( versioning=(?<versioning>.*?))?\\sRUN install-[a-z]+? [a-z]+? (?<currentValue>.*)\\s.*"
+      ],
+      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
+    }
+  ],
+  "prHourlyLimit": 0,
   "requiredStatusChecks": null,
   "platformAutomerge": true
 }
