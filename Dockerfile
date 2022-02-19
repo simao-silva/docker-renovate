@@ -43,7 +43,7 @@ RUN set -ex; \
 FROM base as final
 
 # renovate: datasource=github-releases depName=docker lookupName=moby/moby
-RUN install-tool docker 20.10.7
+RUN install-tool docker v20.10.12
 
 ENV RENOVATE_BINARY_SOURCE=docker
 
