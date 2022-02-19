@@ -31,7 +31,7 @@
         "Dockerfile"
       ],
       "matchStrings": [
-        "datasource=(?<datasource>.*?) lookupName=(?<lookupName>\\S+)\\s\nRUN install-.* node (?<currentValue>.*).*"
+        "datasource=(?<datasource>.*?) lookupName=(?<lookupName>.*?)\\sRUN install-.* node (?<currentValue>\\S+).*"
       ],
       "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
     },
