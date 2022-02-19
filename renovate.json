@@ -16,39 +16,42 @@
   ],
   "regexManagers": [
     {
+      "description": "RENOVATE VERSION",
       "fileMatch": [
         "Dockerfile"
       ],
       "matchStrings": [
-        ".*# renovate: datasource=(?<datasource>\\S+) lookupName=(?<depName>\\S+)( versioning=(?<versioning>.*?))?\\sRUN install-[a-z]* [a-z]* (?<currentValue>.*).*"
+        ".*# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+) versioning=(?<versioning>\\S+)\\sARG .*_VERSION=(?<currentValue>.*).*"
       ],
       "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
     },
     {
+      "description": "Node version",
       "fileMatch": [
-        "^\\.github\\/workflows\\/[^/]+\\.ya?ml$"
+        "Dockerfile"
       ],
       "matchStrings": [
-        ".*# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+) versioning=(?<versioning>\\S+)\\sARG .*_VERSION=(?<currentValue>.*)\\s.*"
+        "datasource=(?<datasource>.*?) depName=(?<depName>.*?)\\sRUN install-.* node v(?<currentValue>.*).*"
       ],
       "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
     },
     {
+      "description": "Yarn version",
       "fileMatch": [
-        "^\\.github\\/workflows\\/[^/]+\\.ya?ml$"
+        "Dockerfile"
       ],
       "matchStrings": [
-        ".*# renovate: datasource=(?<datasource>\\S+)( versioning=(?<versioning>\\S+))?\nRUN install-[a-z]+? [a-z]+? v?(?<currentValue>.*)"
+        "datasource=(?<datasource>.*?) depName=(?<depName>.*?)( lookupName=(?<lookupName>.*?))?( versioning=(?<versioning>.*?))?\\sRUN install-.* yarn (?<currentValue>.*).*\\s"
       ],
-      "depNameTemplate": "node",
       "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
     },
     {
+      "description": "Docker version",
       "fileMatch": [
-        "^\\.github\\/workflows\\/[^/]+\\.ya?ml$"
+        "Dockerfile"
       ],
       "matchStrings": [
-        ".*# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+) lookupName=(?<lookupName>\\S+)( versioning=(?<versioning>.*?))?\\sRUN install-[a-z]+? [a-z]+? (?<currentValue>.*)\\s.*"
+        "datasource=(?<datasource>.*?) depName=(?<depName>\\S+) lookupName=(?<lookupName>\\S+)\nRUN install-.* docker (?<currentValue>.*).*"
       ],
       "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
     }
