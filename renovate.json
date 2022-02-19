@@ -16,7 +16,7 @@
   ],
   "regexManagers": [
     {
-      "description": "RENOVATE VERSION",
+      "description": "Renovate version",
       "fileMatch": [
         "Dockerfile"
       ],
@@ -31,7 +31,7 @@
         "Dockerfile"
       ],
       "matchStrings": [
-        "datasource=(?<datasource>.*?) depName=(?<depName>.*?)\\sRUN install-.* node v(?<currentValue>.*).*"
+        "datasource=(?<datasource>.*?) depName=(?<depName>.*?)\\sRUN install-.* node (?<currentValue>.*).*"
       ],
       "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
     },
