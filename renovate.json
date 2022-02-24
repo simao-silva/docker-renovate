@@ -12,7 +12,7 @@
         "digest"
       ],
       "automerge": true,
-      "automergeType": "pr"
+      "automergeType": "branch"
     }
   ],
   "regexManagers": [
