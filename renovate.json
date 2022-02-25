@@ -22,37 +22,17 @@
         "Dockerfile"
       ],
       "matchStrings": [
-        ".*# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+) versioning=(?<versioning>\\S+)\\sARG .*_VERSION=(?<currentValue>.*).*"
+        "datasource=(?<datasource>.*?) depName=(?<depName>.*?)( lookupName=(?<lookupName>.*?))?( versioning=(?<versioning>.*?))?\\sARG .*VERSION=(?<currentValue>.*).*"
       ],
       "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
     },
     {
-      "description": "Node version",
+      "description": "Node, Yarn and Docker version",
       "fileMatch": [
         "Dockerfile"
       ],
       "matchStrings": [
-        "datasource=(?<datasource>.*?) depName=(?<depName>.*?)\\sRUN install-.* node (?<currentValue>\\S+).*"
-      ],
-      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
-    },
-    {
-      "description": "Yarn version",
-      "fileMatch": [
-        "Dockerfile"
-      ],
-      "matchStrings": [
-        "datasource=(?<datasource>.*?) depName=(?<depName>.*?)( lookupName=(?<lookupName>.*?))?( versioning=(?<versioning>.*?))?\\sRUN install-.* yarn (?<currentValue>.*).*\\s"
-      ],
-      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
-    },
-    {
-      "description": "Docker version",
-      "fileMatch": [
-        "Dockerfile"
-      ],
-      "matchStrings": [
-        "datasource=(?<datasource>.*?) depName=(?<depName>\\S+) lookupName=(?<lookupName>\\S+)\nRUN install-.* docker (?<currentValue>.*).*"
+        "datasource=(?<datasource>.*?) depName=(?<depName>.*?)( lookupName=(?<lookupName>.*?))?( versioning=(?<versioning>.*?))?\\sRUN install-[a-z]* [a-z]* (?<currentValue>.*).*"
       ],
       "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
     }
