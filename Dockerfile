@@ -31,10 +31,9 @@ RUN set -ex; \
 
 ARG RENOVATE_VERSION
 RUN set -ex; \
+  apt-get update && apt-get install -y --no-install-recommends python3 make g++; \
   yarn version --new-version ${RENOVATE_VERSION}; \
   yarn add -E  renovate@${RENOVATE_VERSION} --production;  \
-  echo PWD: "$PWD"; \
-  apt-get update && apt-get install -y --no-install-recommends python3 make g++; \
   npm i re2; \
   node -e "new require('re2')('.*').exec('test')";
 
