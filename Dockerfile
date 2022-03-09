@@ -11,7 +11,7 @@ LABEL org.opencontainers.image.source="https://github.com/renovatebot/renovate" 
   org.opencontainers.image.licenses="AGPL-3.0-only"
 
 # renovate: datasource=github-tags depName=nodejs/node
-RUN install-tool node v17.7.0
+RUN install-tool node v17.6.0
 
 # renovate: datasource=npm depName=yarn versioning=npm
 RUN install-tool yarn 1.22.17
@@ -24,6 +24,9 @@ FROM base as tsbuild
 
 COPY . .
 
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends python3 make g++
+
 RUN set -ex; \
   yarn install; \
   yarn build; \
@@ -31,7 +34,6 @@ RUN set -ex; \
 
 ARG RENOVATE_VERSION
 RUN set -ex; \
-  apt-get update && apt-get install -y --no-install-recommends python3 make g++; \
   yarn version --new-version ${RENOVATE_VERSION}; \
   yarn add -E  renovate@${RENOVATE_VERSION} --production;  \
   npm i re2; \
@@ -55,7 +57,6 @@ COPY bin/ /usr/local/bin/
 RUN ln -sf /usr/src/app/dist/renovate.js /usr/local/bin/renovate;
 RUN ln -sf /usr/src/app/dist/config-validator.js /usr/local/bin/renovate-config-validator;
 CMD ["renovate"]
-
 
 RUN set -ex; \
   renovate --version; \
