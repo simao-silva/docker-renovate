@@ -5,6 +5,10 @@
   ],
   "packageRules": [
     {
+      "matchPackageNames": ["nodejs/node"],
+      "allowedVersions": "<=17.6.0"
+    },
+    {
       "matchUpdateTypes": [
         "major",
         "minor",
