@@ -3,7 +3,7 @@ ARG RENOVATE_VERSION=32.36.0
 
 # Base image
 #============
-FROM simaofsilva/renovatebot-docker-buildpack:latest@sha256:9ebab673cdfef39969768292ec29759edb2d33100797ef8f80ce542a8fa386d3 AS base
+FROM simaofsilva/renovatebot-docker-buildpack:latest@sha256:f85ccba2109a99ea0f04b314018ceeb4e954e3f90f7a5f0770e5a337312e85a0 AS base
 
 LABEL name="renovate"
 LABEL org.opencontainers.image.source="https://github.com/renovatebot/renovate" \
