@@ -28,6 +28,7 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends python3 make g++
 
 RUN set -ex; \
+  yarn config set network-timeout 600000; \
   yarn install; \
   yarn build; \
   chmod +x dist/*.js;
