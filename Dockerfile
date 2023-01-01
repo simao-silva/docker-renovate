@@ -3,12 +3,7 @@ ARG RENOVATE_VERSION=34.77.0
 
 # Base image
 #============
-FROM simaofsilva/renovatebot-docker-buildpack:latest@sha256:d1aa670a46fd4a3dc3fc806e3f74dfa6d35849552018b53a0f4a7127de3fab64 AS base
-
-LABEL name="renovate"
-LABEL org.opencontainers.image.source="https://github.com/renovatebot/renovate" \
-  org.opencontainers.image.url="https://renovatebot.com" \
-  org.opencontainers.image.licenses="AGPL-3.0-only"
+FROM simaofsilva/containerbase-buildpack:5.10.1 AS base
 
 # renovate: datasource=github-tags depName=nodejs/node
 RUN install-tool node v19.3.0
@@ -18,54 +13,30 @@ RUN install-tool yarn 1.22.19
 
 WORKDIR /usr/src/app
 
-# Build image
-#============
-FROM base as tsbuild
-
-COPY . .
-
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends python3 make g++
-
-RUN set -ex; \
-  yarn config set network-timeout 600000; \
-  yarn install; \
-  yarn build; \
-  chmod +x dist/*.js;
-
-ARG RENOVATE_VERSION
-RUN set -ex; \
-  yarn version --new-version ${RENOVATE_VERSION}; \
-  yarn add -E  renovate@${RENOVATE_VERSION} --production;  \
-  npm i re2; \
-  node -e "new require('re2')('.*').exec('test')";
-
-# Final image
-#============
-FROM base as final
-
 # renovate: datasource=github-releases depName=docker lookupName=moby/moby
 RUN install-tool docker v20.10.22
 
 ENV RENOVATE_BINARY_SOURCE=docker
 
-COPY --from=tsbuild /usr/src/app/package.json package.json
-COPY --from=tsbuild /usr/src/app/dist dist
-COPY --from=tsbuild /usr/src/app/node_modules node_modules
-
-# exec helper
 COPY bin/ /usr/local/bin/
-RUN ln -sf /usr/src/app/dist/renovate.js /usr/local/bin/renovate;
-RUN ln -sf /usr/src/app/dist/config-validator.js /usr/local/bin/renovate-config-validator;
 CMD ["renovate"]
+
+ARG RENOVATE_VERSION
+
+RUN apt update && \
+    apt install -y --no-install-recommends python3 make g++ && \
+    install-tool renovate && \
+    apt autoremove -y python3 make g++ && \
+    rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/* /usr/share/doc /usr/share/man
+
+# Compabillity, so `config.js` can access renovate and deps
+RUN ln -sf /opt/buildpack/tools/renovate/${RENOVATE_VERSION}/node_modules ./node_modules;
 
 RUN set -ex; \
   renovate --version; \
   renovate-config-validator; \
-  node -e "new require('re2')('.*').exec('test')";
-
-ARG RENOVATE_VERSION
-LABEL org.opencontainers.image.version="${RENOVATE_VERSION}"
+  node -e "new require('re2')('.*').exec('test')"; \
+  true
 
 # Numeric user ID for the ubuntu user. Used to indicate a non-root user to OpenShift
 USER 1000

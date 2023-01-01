@@ -5,7 +5,9 @@
   ],
   "packageRules": [
     {
-      "matchPackageNames": ["nodejs/node"],
+      "matchPackageNames": [
+        "nodejs/node"
+      ],
       "allowedVersions": "!/^17\\.6\\.0/"
     },
     {
@@ -13,6 +15,8 @@
         "major",
         "minor",
         "patch",
+        "pin",
+        "pinDigest",
         "digest"
       ],
       "automerge": true,
@@ -43,5 +47,8 @@
   ],
   "prHourlyLimit": 0,
   "requiredStatusChecks": null,
-  "platformAutomerge": true
+  "platformAutomerge": true,
+  "docker": {
+    "pinDigests": true
+  }
 }
