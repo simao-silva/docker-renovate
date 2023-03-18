@@ -3,16 +3,15 @@ name: build and push image
 on:
   push:
     branches:
-      - 'main'
+      - "main"
     paths:
       - Dockerfile
-      - '.github/workflows/**'
+      - ".github/workflows/**"
 
 env:
   IMAGE_NAME: "simaofsilva/renovatebot-docker-renovate"
   REPO_URL: "https://github.com/renovatebot/docker-renovate"
   LOCAL_PATH: "/tmp/docker-renovate"
-
 
 jobs:
   build:
@@ -31,7 +30,7 @@ jobs:
         id: version
         shell: bash
         run: |
-          echo "::set-output name=VERSION::$(sed -n '2p' Dockerfile | sed 's|ARG RENOVATE_VERSION=||1')"
+          echo "VERSION=$(sed -n '2p' Dockerfile | sed 's|ARG RENOVATE_VERSION=||1')" >> $GITHUB_OUTPUT
 
       - name: Print version
         run: |
