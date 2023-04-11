@@ -6,7 +6,7 @@ ARG RENOVATE_VERSION=35.40.3
 FROM simaofsilva/containerbase-buildpack:7.8.0@sha256:dfbc1db45e4d2130d30b0d1aecd66ce2bd917ee8cbb6af22d4dce94733d019f8 AS base
 
 # renovate: datasource=github-tags depName=nodejs/node
-RUN install-tool node v19.8.1
+RUN install-tool node v19.9.0
 
 # renovate: datasource=npm depName=yarn versioning=npm
 RUN install-tool yarn 1.22.19
