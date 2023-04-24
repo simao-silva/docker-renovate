@@ -3,7 +3,7 @@ ARG RENOVATE_VERSION=35.58.2
 
 # Base image
 #============
-FROM simaofsilva/containerbase-buildpack:7.8.4@sha256:77ce95b0e90844b29044ad486079e0ffc93450a1eec54453a9c7e79473d44275 AS base
+FROM simaofsilva/containerbase-buildpack:7.8.5@sha256:4944ad0a65293767efe5c52888264907863dc3d83b49c0f66d8bb7e4d2aef6ca AS base
 
 # renovate: datasource=github-tags depName=nodejs/node
 RUN install-tool node v20.0.0
