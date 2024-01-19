@@ -14,7 +14,7 @@ RUN install-tool yarn 1.22.21
 WORKDIR /usr/src/app
 
 # renovate: datasource=github-releases depName=docker lookupName=moby/moby
-RUN install-tool docker v24.0.7
+RUN install-tool docker v25.0.0
 
 ENV RENOVATE_BINARY_SOURCE=docker
 
